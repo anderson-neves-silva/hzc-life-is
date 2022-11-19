@@ -1,4 +1,3 @@
-/* cabeçalho */
 @font-face {
   font-family: 'icones';
   src: url(../font/icones.ttf);
@@ -10,6 +9,7 @@ body {
   color: #FFFFFF;
 }
 
+/* cabeçalho */
 .cabecalho {
   display: flex;
   justify-content: space-between;
@@ -19,7 +19,7 @@ body {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.16);
 }
 
-/* como esses elementos dos ícones menu e notificação são fonte eu posso aumentar com o font size */
+/* como esses elementos dos ícones menu e notificação são fonte eu posso aumentar com o font size. */
 .cabecalho__menu i::before {
   content: "\e904";
   font-size: 24px;
@@ -42,7 +42,7 @@ body {
   width: 75vw;
   height: 100vh;
 
-  /* aqui faz esconder o menu sendo como opão default */
+  /* aqui faz esconder o menu sendo como opão default. */
   position: absolute;
   left: -100vw;
   transition: .25s;
@@ -104,5 +104,121 @@ body {
 
 .menu-lateral__link--pinturas::before {
   content: "\e90a";
+}
+
+/* main - cartões */
+.principal {
+  padding: 24px 16px;
+  display: grid;
+  gap: 16px;
+}
+
+.titulo-pagina {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.titulo-secao {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.cartao {
+  width: 100%;
+  border-radius: 15px;
+  /* qualquer coisa que passa deste cartão fica escondido. */
+  overflow: hidden;
+  background-color: #2C343A;
+}
+
+.cartao--destaque {
+  margin-bottom: 16px;
+}
+
+/* aqui aplico o display grid, faço uso de uma nova unidade de medida "fr" ou fração, que neste exemplo cada 1fr o mesmo que 50% da página. */
+.cartao__conteudo {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  /* com o grid gamanhos uma melhor forma de fazer o espaçamento entre os elementos dentro do grid container, para apenas espaçamento entre linhas use "row-gap: 8px", e para entre colunas use "column-gap: 8px", para espaçar entre colunas e linhas use apenas "gap: 8px". */
+  gap: 8px;
+  /* para não trabalhar com incerteza devemos fazendo a coluna se auto ajustar com o maior elemento, porque digamos que algum elemento dentro do grid container aumente de tamanho, tipo a coluna cresça isso gerar problemas, então aqui neste exemplo mudamos a primeira 1fr para auto. */
+}
+
+.cartao__destaque {
+  grid-column: span 2;
+}
+
+.cartao__titulo {
+  font-size: 1.2rem;
+  font-weight: 700;
+
+  grid-column: span 2;
+}
+
+.cartao__perfil {
+  color: #95999C;
+  font-size: 0.9rem;
+
+  grid-column: span 2;
+}
+
+.cartao__info {
+  display: flex;
+  align-items: center;
+  color: #95999C;
+}
+
+.cartao__info--tempo::before {
+  content: "\e90c";
+  margin-right: 8px;
+}
+
+.cartao__info--visualizacao::before {
+  content: "\e90f";
+  margin-right: 8px;
+}
+
+.cartao__info--moeda::before {
+  content: "\e905";
+  margin-right: 8px;
+}
+
+.cartao__botao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0480DC;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  /* usando mai um recurso do grid, alinhando a direita apenas o botão. */
+  justify-self: flex-end;
+}
+
+.cartao__botao--play::before {
+  content: "\e90b";
+  font-size: 24px;
+}
+
+.cartao__botao--compra::before {
+  content: "\e901";
+  font-size: 24px;
+}
+
+.cartao__botao--destaque {
+  width: 100%;
+
+  grid-column: span 2;
+}
+
+.cartao__botao--destaque::before {
+  margin-right: 8px;  
+}
+
+.secao {
+  display: grid;
+  gap: 16px;  
 }
 
