@@ -9,6 +9,15 @@ body {
   color: #FFFFFF;
 }
 
+/* media query: screen significa para despositivos que tenhão tela, que possua uma largura mínimo de 1.440px */
+@media  screen and (min-width: 1440px) {
+  body {
+    display: grid;
+    /* colocando a coluna do menu como auto */
+    grid-template-columns: auto 1fr;
+  }
+}
+
 /* cabeçalho */
 .cabecalho {
   display: flex;
@@ -32,6 +41,69 @@ body {
 
 .cabecalho__logo {
   width: 40px;
+}
+
+/* removendo o novo elemento criado de perfil que irá aparecer apenas na versão desktop, aqui na mobile não aparece. */
+.cabecalho__perfil {
+  display: none;
+}
+
+@media screen and (min-width: 1440px) {
+  .cabecalho {
+    background-color: #1D232A;
+    display: grid;
+    column-gap: 32px;
+    /* criando duas colunas */
+    grid-template-columns: 1fr auto;
+    /* quando trabalhamos com tamanhos de largura e altura no padding devemos colocar o box-sizing para que essas medidas sejam respeitadas. */
+    padding: 16px 60px;
+    height: 80px;
+    box-sizing: border-box;
+    grid-column: 2;
+  }
+
+  .cabecalho__menu {
+    display: none;
+  }
+
+  .cabecalho__logo {
+    display: none;
+  }
+
+  .cabecalho__perfil {
+    display: grid;
+    /* ao invés de colocar "auto auto auto" aqui pois precisamos de 3 colunas, usamos o repeat para isso, e entre () o primeiro parâmetro e a quantidade que desejamos repetir e o segundo o que desejamos fazer. */
+    grid-template-columns: repeat(3, auto);
+    column-gap: 8px;
+    align-items: center;
+    justify-self: flex-end;
+    color: #95999C;
+    padding: 8px 32px;
+    border-right: 1px solid #95999C;
+  }
+
+  /* adicionando pseudo elementos, aqui os ícones. */
+  .cabecalho__perfil::before {
+    /* esse content mesmo sem nada precisa existir */
+    content: "";
+    display: block;
+    width: 32px;
+    height: 32px;
+    /* imagem do perfil da pessoa */
+    background-image: url(../img/profile_2.png);
+    /* o tamanho desta imagem deve está contida dentro de tamanho */
+    background-size: contain;
+    /* fazendo a imagem não se repetir */
+    background-repeat: no-repeat;
+    /* centralizando a imagem */
+    background-position: center;
+  }
+
+  .cabecalho__perfil::after {
+    content: "\e90d";
+    color: #FFFFFF;
+    font-size: 1.5rem;
+  }
 }
 
 /* menu lateral */
@@ -106,6 +178,18 @@ body {
   content: "\e90a";
 }
 
+/* media query, voltando o menu lateral */
+@media screen and (min-width: 1440px) {
+  .menu-lateral {
+    position: static;
+    width: 200px;
+    /* dizendo em aqual coluna o menu irá começar */
+    grid-column: 1;
+    /* começa na primeira linha e depois span de 2 linhas */
+    grid-row: 1 / span 2;
+  }
+}
+
 /* main - cartões */
 .principal {
   padding: 24px 16px;
@@ -123,12 +207,39 @@ body {
   font-weight: 700;
 }
 
+/* media query, main-principal */
+@media screen and (min-width: 1440px) {
+  .principal {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    /* siginifica que na primeira linha três colunas são ocupudas pelo título da página, aqui apenas designamos as áreas */
+    grid-template-areas: 
+      "titulo-pagina titulo-pagina titulo-pagina"
+      "destaque-video destaque-video videos-recentes"
+      "secao-videos secao-videos secao-videos"
+      "produtos-recentes destaque-produtos destaque-produtos"
+      "secao-produtos secao-produtos secao-produtos"
+    ;
+    column-gap: 32px;
+    padding: 16px 60px;
+    grid-column: 2;
+  }
+
+  .titulo-secao {
+    grid-column: span 4;
+  }
+}
+
 .cartao {
   width: 100%;
   border-radius: 15px;
   /* qualquer coisa que passa deste cartão fica escondido. */
   overflow: hidden;
   background-color: #2C343A;
+}
+
+.cartao__imagem--desktop {
+  display: none;
 }
 
 .cartao--destaque {
@@ -217,8 +328,123 @@ body {
   margin-right: 8px;  
 }
 
+/* removendo o cartao--recentes pois ele não existe na versão mobile. */
+.cartao--recentes {
+  display: none;
+}
+
+/* media query, cartão recente */
+@media screen and (min-width: 1440px) {
+  .cartao--destaque {
+    margin-bottom: 0;
+  }
+  
+  .cartao__imagem--mobile {
+    display: none;
+  }
+  
+  .cartao__imagem--desktop {
+    display: block;
+  }
+
+  .cartao__botao--destaque {
+    grid-column: auto;
+    padding: 16px 8px;
+  }
+  
+  /* essa parte por ter três elmentos, um título, uma lista e um link podemos utilizar um display grid aqui. */
+  .cartao--recentes {
+    display: grid;
+    grid-template-columns: auto auto;
+    /* alinhado verticalmente */
+    align-items: center;
+    /* espaçamento entre linhas */
+    row-gap: 24px;
+    /* largura fixa */
+    width: 256px;
+    /* espaçamento interno */
+    padding: 16px;
+    /* por estarmos trabalhando com padding em tamanho usamos o box-sizing */
+    box-sizing: border-box;
+    align-self: flex-start;
+  }
+
+  .cartao--recentes .cartao__titulo {
+    grid-column: auto;
+  }
+
+  .cartao__link {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #0480DC;
+    /* deixando o link na direita */
+    justify-self: flex-end;
+  }
+
+  .cartao__lista {
+    display: grid;
+    row-gap: 16px;
+    /* como queremos que a lista ocupe as duas colunas fazemos assim */
+    grid-column: span 2;
+  }
+
+  /* arrumando a lista de itens */
+  .cartao__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
+  }
+
+  .cartao__item--thumbnail {
+    width: 32px;
+    grid-row: span 2;
+  } 
+
+  .cartao__item-titulo {
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+    font-weight: 700;
+  }
+
+  .cartao__item-perfil {
+    font-size: 0.8rem;
+    color: #95999C;
+  }
+}
+
 .secao {
   display: grid;
   gap: 16px;  
+}
+
+@media screen and (min-width: 1440px) {
+  .secao {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* associando os grid-areas,  */
+  .destaque-video {
+    grid-area: destaque-video;
+  }
+
+  .videos-recentes {
+    grid-area: videos-recentes;
+  }
+
+  .secao-videos {
+    grid-area: secao-videos;
+  }
+
+  .destaque-produtos {
+    grid-area: destaque-produtos;
+  }
+
+  .produtos-recentes {
+    grid-area: produtos-recentes;
+  }
+
+  .secao-produtos {
+    grid-area: secao-produtos;
+  }  
 }
 
